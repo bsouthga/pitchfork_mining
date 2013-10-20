@@ -2,17 +2,18 @@
 # Ben Southgate
 # 10/18/13
 
-
-import sys, Image, io
+import sys, Image, io, shelve
 from bs4 import BeautifulSoup as BS
 from urllib import FancyURLopener
 
-# Handle funky Unicode band names 
+# Handle funky Unicode band names
+reload(sys) 
 sys.setdefaultencoding("utf-8")
 
 # Browser Agent Opener
 class browser_opener(FancyURLopener):
-    version = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
+    version =  'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) \
+                Gecko/20071127 Firefox/2.0.0.11'
 
 # Easy review info storage
 class Review:
@@ -127,6 +128,7 @@ def get_review(link_BS_object):
         image_url = artwork.find("img")['src']
         image_url_read   = opener.open(image_url)
         image_byte_file  = io.BytesIO(image_url_read.read())
+
         try:    
             # Try to load image
             image = Image.open(image_byte_file)
@@ -170,15 +172,15 @@ def get_review(link_BS_object):
                     )
 
 
-# Loop through all album review pages, collecting information on each review
-def collect(starting_page):
+# Loop through all album review pages, collecting information on each review 
+def collect(starting_page, shelf, export_data=True):
 
     reached_last_page = False
     album_page_num = starting_page
     opener = browser_opener()
     review_dict = {}
 
-    while(reached_last_page == False):
+    while(not reached_last_page):
 
         # Where are we?
         print("Album Page\t{0}".format(album_page_num))
@@ -214,20 +216,28 @@ def collect(starting_page):
             uid = review.artist + review.album
             review_dict[uid] = review
 
-        # Write every 5 pages to a tsv file, as a precaution
-        if album_page_num % 5 == 0:
-            write_data( review_dict, 
-                        "./data/data{0}.tsv".format(starting_page)
-                        )
+        if export_data:
+
+            shelf['data{0}'.format(starting_page)] = review_dict
+
+            # Write every 5 pages to a tsv file, as a precaution
+            if album_page_num % 5 == 0:
+                write_data( review_dict, 
+                            "./data{0}.tsv".format(starting_page)
+                            )
 
         album_page_num = album_page_num + 1
 
-    write_data( review_dict, 
-            "./data/data{0}.tsv".format(starting_page)
-            )
+    # Final .tsv output
+    if export_data:
+        write_data( review_dict, 
+                "./data{0}.tsv".format(starting_page)
+                )
  
 
 if __name__ == "__main__":
-    collect(700)
+    storage = shelve.open('review_storage')
+    collect(700, storage)
+    storage.close()
 
 
