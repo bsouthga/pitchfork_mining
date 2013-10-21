@@ -60,7 +60,7 @@ class Artist:
         self.reviews = {}
 
 
-    def add_review(review):
+    def add_review(self, review):
 
         self.reviews[review.date] = review
 
