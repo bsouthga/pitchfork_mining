@@ -5,6 +5,8 @@
 import sys, Image, io, shelve
 from bs4 import BeautifulSoup as BS
 from urllib import FancyURLopener
+from pitchfork_reviews import Review
+from pitchfork_reviews import write_data
 
 # Handle funky Unicode band names
 reload(sys) 
@@ -14,71 +16,6 @@ sys.setdefaultencoding("utf-8")
 class browser_opener(FancyURLopener):
     version =  'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) \
                 Gecko/20071127 Firefox/2.0.0.11'
-
-# Easy review info storage
-class Review:
-
-    def __init__(self, 
-                 artist, 
-                 album,
-                 label, 
-                 date, 
-                 score, 
-                 author, 
-                 color_avg,
-                 imglink,
-                 special,
-                 editorial
-                 ):        
-        
-        self.artist     = artist
-        self.album      = album
-        self.label      = label
-        self.date       = date
-        self.score      = score
-        self.author     = author
-        self.color_avg  = color_avg  # average color of album cover
-        self.imglink    = imglink
-        self.special    = special    # Win best new music etc?
-        self.editorial  = editorial
-
-    def get(self):
-
-        return  [   self.artist,   
-                    self.album,    
-                    self.label,    
-                    self.date,     
-                    self.score,    
-                    self.author,   
-                    self.color_avg,
-                    self.imglink,    
-                    self.special,
-                    self.editorial
-                    ]  
-
-
-# Write data dictionary to .tsv
-def write_data(review_dict, outname):
-    
-    with open(outname, 'w') as out:
-
-        headers = [ "artist", 
-                    "album",
-                    "label", 
-                    "date", 
-                    "score", 
-                    "author", 
-                    "color_avg",
-                    "imglink",
-                    "special",
-                    "editorial"
-                    ]
-
-        out.write( "\t".join(headers) + "\n")
-        
-        for key in review_dict.keys():
-            review = review_dict[key]
-            out.write( "\t".join( [str(x) for x in review.get()]) + "\n")
 
 
 # Get all the review information for an individual link
@@ -237,7 +174,7 @@ def collect(starting_page, shelf, export_data=True):
 
 if __name__ == "__main__":
     storage = shelve.open('review_storage')
-    collect(700, storage)
+    collect(1, storage)
     storage.close()
 
 
