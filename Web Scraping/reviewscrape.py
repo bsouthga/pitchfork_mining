@@ -155,12 +155,12 @@ def collect(starting_page, shelf, export_data=True):
 
         if export_data:
 
-            shelf['data{0}'.format(starting_page)] = review_dict
+            shelf['./Data/data{0}'.format(starting_page)] = review_dict
 
             # Write every 5 pages to a tsv file, as a precaution
             if album_page_num % 5 == 0:
                 write_data( review_dict, 
-                            "./data{0}.tsv".format(starting_page)
+                            "./Data/data{0}.tsv".format(starting_page)
                             )
 
         album_page_num = album_page_num + 1
@@ -168,7 +168,7 @@ def collect(starting_page, shelf, export_data=True):
     # Final .tsv output
     if export_data:
         write_data( review_dict, 
-                "./data{0}.tsv".format(starting_page)
+                "./Data/data{0}.tsv".format(starting_page)
                 )
  
 

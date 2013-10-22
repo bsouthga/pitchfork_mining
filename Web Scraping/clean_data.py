@@ -84,7 +84,7 @@ def assign_albums_artist(full_data):
 def main():
 
 
-    storage = shelve.open('Pitchfork_data_full')
+    storage = shelve.open('./Data/Pitchfork_data_full')
     full_data = storage['data']
 
     cleaned_time = clean_time(full_data)
