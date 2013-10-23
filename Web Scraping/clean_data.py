@@ -94,6 +94,7 @@ def main():
 
     path = "/Users/Ben/Dropbox/projects/pitchfork/Data/"
     print("Importing Uncleaned Data...")
+
     # Open raw data from scrape
     uncleaned = shelve.open(os.path.join(path,'Uncleaned'))
     full_data = uncleaned['data']
@@ -103,8 +104,9 @@ def main():
     cleaned_time = clean_time(full_data)
     data_frame = model_prep(cleaned_time)
 
-    # Store cleaned data
     print("Storing Cleaned Data...")
+
+    # Store cleaned data   
     storage = shelve.open(os.path.join(path,'Pitchfork_Data_Shelf'))
     storage['cleaned data'] = cleaned_time
     storage['data frame']   = data_frame
