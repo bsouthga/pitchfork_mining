@@ -3,6 +3,8 @@
 # Ben Southgate
 # 10/19/13
 
+import sys
+from urllib import FancyURLopener
 
 ########################
 # Pitchfork Review Class
@@ -36,7 +38,7 @@ class PitchforkReview(object):
                     editorial
                     ):
 
-        super(Review, self).__init__()        
+        super(PitchforkReview, self).__init__()        
         
         self.artist     = artist
         self.album      = album
