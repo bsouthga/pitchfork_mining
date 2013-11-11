@@ -84,7 +84,7 @@ class MetaReview(object):
 
         self.critic = critic # Name of publication reviewing album
         self.score = score # Score from above critic
-        self.text = text # Snipit of review text
+        self.text = text # Snippit of review text
         self.link = link # Link to review page (off MetaCritic)
 ```
 
