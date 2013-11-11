@@ -36,7 +36,7 @@ class PitchforkReview(object):
         self.date       = date # Review date
         self.score      = score 
         self.author     = author # Review author
-        self.color_avg  = color_avg  # Average color of album cover
+        self.color_avg  = color_avg  # Average (R,G,B) of album cover
         self.imglink    = imglink # Link to image of album cover
         self.reviewlink = reviewlink # Link to review page
         self.special    = special    # Win best new music etc?
