@@ -11,7 +11,7 @@ Review Data Structures
 ```python
 
 class PitchforkReview(object):
-
+    ''' Store a single Pitchfork Review '''
     def __init__(   self, 
                     artist, 
                     album,
@@ -28,17 +28,17 @@ class PitchforkReview(object):
 
         super(PitchforkReview, self).__init__()        
         
-        self.artist     = artist
-        self.album      = album
-        self.label      = label
-        self.date       = date
-        self.score      = score
-        self.author     = author
+        self.artist     = artist # Musical artist
+        self.album      = album 
+        self.label      = label # Record label producing album
+        self.date       = date # Review date
+        self.score      = score 
+        self.author     = author # Review author
         self.color_avg  = color_avg  # average color of album cover
-        self.imglink    = imglink
-        self.reviewlink = reviewlink
+        self.imglink    = imglink # Link to image of album cover
+        self.reviewlink = reviewlink # Link to review page
         self.special    = special    # Win best new music etc?
-        self.editorial  = editorial
+        self.editorial  = editorial # Full text of review
 ```
 
 ### MetaCritic Review "Scrapings":
@@ -46,7 +46,7 @@ class PitchforkReview(object):
 ```python
 
 class MetaItem(object):
-    """ Stores all the different reviews for this item."""
+    ''' Stores all the different reviews for this item.'''
     def __init__(self, title, artist_name, meta_score, user_average, release_date):
         super(MetaItem, self).__init__()
         self.title = title
@@ -62,13 +62,12 @@ class MetaItem(object):
 
 
 class MetaReview(object):
-    """ A single review for storage in an item object """
-
+    ''' A single review for storage in an item object '''
     def __init__(self, critic, score, text, link):
         super(MetaReview, self).__init__()
-        self.critic = critic
-        self.score = score
-        self.text = text
-        self.link = link
+        self.critic = critic # Name of publication reviewing album
+        self.score = score # Score from above critic
+        self.text = text # Snipit of review text
+        self.link = link # Link to review page (off MetaCritic)
 ```
 
