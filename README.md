@@ -8,7 +8,7 @@ Review Data Structures
 
 ### Pitchfork Review "Scrapings":
 
-'''python
+```python
 
 class PitchforkReview(object):
 
@@ -39,11 +39,11 @@ class PitchforkReview(object):
         self.reviewlink = reviewlink
         self.special    = special    # Win best new music etc?
         self.editorial  = editorial
-'''
+```
 
 ### MetaCritic Review "Scrapings":
 
-'''python
+```python
 
 class MetaItem(object):
     """ Stores all the different reviews for this item."""
@@ -70,5 +70,5 @@ class MetaReview(object):
         self.score = score
         self.text = text
         self.link = link
-'''
+```
 
