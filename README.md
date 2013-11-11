@@ -49,7 +49,14 @@ class PitchforkReview(object):
 
 class MetaItem(object):
     ''' Stores all the different reviews for this item.'''
-    def __init__(self, title, artist_name, meta_score, user_average, release_date):
+    def __init__(   self,
+                    title,
+                    artist_name,
+                    meta_score,
+                    user_average,
+                    release_date
+                    ):
+
         super(MetaItem, self).__init__()
         self.title = title
         self.artist = artist_name
