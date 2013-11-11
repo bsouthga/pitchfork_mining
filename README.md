@@ -36,7 +36,7 @@ class PitchforkReview(object):
         self.date       = date # Review date
         self.score      = score 
         self.author     = author # Review author
-        self.color_avg  = color_avg  # average color of album cover
+        self.color_avg  = color_avg  # Average color of album cover
         self.imglink    = imglink # Link to image of album cover
         self.reviewlink = reviewlink # Link to review page
         self.special    = special    # Win best new music etc?
@@ -58,6 +58,7 @@ class MetaItem(object):
                     ):
 
         super(MetaItem, self).__init__()
+
         self.title = title
         self.artist = artist_name
         self.meta_score = meta_score
@@ -72,8 +73,15 @@ class MetaItem(object):
 
 class MetaReview(object):
     ''' A single review for storage in an item object '''
-    def __init__(self, critic, score, text, link):
+    def __init__(   self,
+                    critic,
+                    score,
+                    text,
+                    link
+                    ):
+
         super(MetaReview, self).__init__()
+
         self.critic = critic # Name of publication reviewing album
         self.score = score # Score from above critic
         self.text = text # Snipit of review text
