@@ -6,6 +6,8 @@ This is a little project to see the if there are any patterns to the reviews tha
 Web Scraping Data Structures
 -----------------------
 
+In order to store the many components of each review, several data structures were created to ease storage and collection. For collecting information on pitchfork, a single class was used. As each Metacritic album has multiple reviews from varying critics, a two part class structure was utilized.
+
 ### Pitchfork Review "Scrapings":
 
 ```python
@@ -41,7 +43,7 @@ class PitchforkReview(object):
         self.editorial  = editorial # Full text of review
 ```
 
-### MetaCritic Review "Scrapings":
+### Metacritic Review "Scrapings":
 
 ```python
 
