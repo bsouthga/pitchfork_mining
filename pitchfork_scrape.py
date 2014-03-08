@@ -92,7 +92,7 @@ def get_review(link_BS_object):
 
 
     # Show progress of the scraping 
-    print("\t\t".join([author, date, str(color_avg), artist, album]))
+    print("\t".join([author, date, artist, album]))
 
     return  PitchforkReview(    artist=artist,       
                                 album=album,   
@@ -175,7 +175,7 @@ def collect(starting_page, shelf, export_data=True):
 
 if __name__ == "__main__":
     storage = shelve.open('review_storage')
-    collect(1, storage)
+    collect(486, storage)
     storage.close()
 
 
