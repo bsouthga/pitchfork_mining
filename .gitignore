@@ -1,0 +1,4 @@
+deprecated/*
+pitchfork.sublime-*
+.DS_Store
+node_modules/*

@@ -1,0 +1,9 @@
+{
+  "description" : "collection and vizualization of pitchfork reviews.",
+  "dependencies" : {
+    "request" : "2.51.x",
+    "lodash-node" : "2.4.x",
+    "cheerio" : "0.18.x",
+    "queue" : "1.0.x"
+  }
+}
