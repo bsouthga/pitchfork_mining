@@ -24,3 +24,4 @@ function collect(i) {
 }
 
 collect(1);
+
