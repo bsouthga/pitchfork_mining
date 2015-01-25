@@ -15,13 +15,16 @@ function getData(selection, data, output) {
   function stripField(value, key) {
     
     var $key = selection.find(key),
-        multiple = $key.length > 1;
+        multiple = $key.length > 1,
+        out, attr, field;
 
     if (!$key.length) return null;
 
     if (!value.field) {
       output = getData($key, value, output);
     } else {
+
+      field = value.field;
 
       if (value.text) {
 
@@ -30,21 +33,21 @@ function getData(selection, data, output) {
           $key.each(function() {
             out.push(cheerio(this).text())
           })
-          output[value.field] = out;
+          output[field] = out;
         } else {
-          output[value.field] = $key.text()
+          output[field] = $key.text()
         }
         
-      } else if (value.attr) {
+      } else if (attr = value.attr) {
 
         if (multiple) {
           var out = [];
           $key.each(function() {
-            out.push(cheerio(this).attr(value.attr))
+            out.push(cheerio(this).attr(attr))
           })
-          output[value.field] = out;
+          output[field] = out;
         } else {
-          output[value.field] = $key.attr(value.attr);
+          output[field] = $key.attr(attr);
         }
 
       }

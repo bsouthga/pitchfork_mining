@@ -7,17 +7,22 @@ var page = require('./page.js'),
     request = require('request');
 
 
-function collect(i) {
+function collect(i, single) {
 
   var url = 'http://pitchfork.com/reviews/albums/' + i + '/';
 
   request(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       page(url, function(error, results) {
-        console.log('page ' + i + ' collected...')
-        fs.writeFile('../data/page_' + i + '.json', JSON.stringify(results));
+        fs.writeFile(
+          '../data/page_' + i + '.json', 
+          JSON.stringify(results), 
+          function(err) {
+            console.log('page ' + i + ' collected...')
+          }
+        );
       });
-      collect(i+1);
+      if (!single) collect(i+1);
     }
   })
 
