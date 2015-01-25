@@ -13,8 +13,11 @@ function getData(selection, data, output) {
   output = output || {};
 
   function stripField(value, key) {
+    
     var $key = selection.find(key),
         multiple = $key.length > 1;
+
+    if (!$key.length) return null;
 
     if (!value.field) {
       output = getData($key, value, output);
@@ -45,7 +48,7 @@ function getData(selection, data, output) {
         }
 
       }
-      
+
     }
   }
 

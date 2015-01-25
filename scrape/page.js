@@ -4,29 +4,37 @@
 
 var scrape = require('./scrape.js'),
     album = require('./album.js'),
-    queue = require('queue-async'),
-    fs = require('fs');
+    queue = require('queue-async');
 
 var grid_data = {
   ".object-grid a" : {'field' : "links", "attr" : 'href'}
 }
 
+function page(url, callback) {
 
-scrape('http://pitchfork.com/reviews/albums/', grid_data, function(error, grid) {
-  var q = queue(), output = {};
+  callback = callback || function(e, r) {console.log(r);};
 
-  grid.links.forEach(function(url) {
-    q.defer(album, 'http://pitchfork.com' + url)
-  });
+  scrape(url, grid_data, function(error, grid) {
+    var q = queue(), output = {};
 
-  // all reviews scraped
-  q.awaitAll(function(error, results) {
+    grid.links.forEach(function(url) {
+      q.defer(album, 'http://pitchfork.com' + url)
+    });
 
-    grid.links.forEach(function(url, i) {
-      output[url] = results[i];
+    // all reviews scraped
+    q.awaitAll(function(error, results) {
+
+      grid.links.forEach(function(url, i) {
+        output[url] = results[i];
+      })
+
+      callback(error || null, output);
+
     })
 
   })
 
-})
+}
 
+
+module.exports = page;

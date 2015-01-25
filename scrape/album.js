@@ -1,6 +1,4 @@
-var scrape = require('./scrape.js'),
-    cheerio = require('cheerio'),
-    request = require('request');
+var scrape = require('./scrape.js');
 
 
 // define structure of data to collect
@@ -27,9 +25,16 @@ var review = {
 
 
 function album(url, callback) {
+  if (verbose) console.log('collecting data from ' + url);
   scrape(url, review, callback);
 }
 
+var verbose = false;
+album.verbose = function(value) {
+  if (!arguments.length) return verbose;
+  verbose = value;
+  return album;
+}
 
 module.exports = album;
 
