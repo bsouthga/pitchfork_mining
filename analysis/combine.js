@@ -3,7 +3,7 @@
 var _ = require('lodash-node'),
     fs = require('fs');
 
-fs.readdir('../data/', function(err, files){
+fs.readdir('../data/pitchfork/', function(err, files){
 
   var full = {};
 

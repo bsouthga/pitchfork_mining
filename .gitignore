@@ -3,3 +3,5 @@ pitchfork.sublime-*
 .DS_Store
 node_modules/*
 data/*
+scrape/metacritic.js
+scrape/*-login.js

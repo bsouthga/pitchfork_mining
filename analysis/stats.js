@@ -5,7 +5,6 @@ var _ = require('lodash-node'),
 fs.readFile('../data/pitchfork.json', function(err, data) {
 
   var d = JSON.parse(data);
-  console.log(Object.keys(d).length);
 
 });
 

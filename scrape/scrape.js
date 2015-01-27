@@ -8,6 +8,31 @@ var _ = require('lodash-node'),
     request = require('request');
 
 
+function get(node, value) {
+
+  var result = {};
+
+  if (value.text) result.text = node.text(); 
+
+  // get all attributes requested,
+  // if attributes not passed as array,
+  // convert to array
+  if (value.attr) {
+    (
+      value.attr instanceof Array ? 
+      value.attr : 
+      [value.attr]
+    )
+    .forEach(function(attr) {
+      result[attr] = node.attr(attr);
+    })
+  }
+
+  return result;
+}
+
+
+
 function getData(selection, data, output) {
 
   output = output || {};
@@ -26,31 +51,19 @@ function getData(selection, data, output) {
 
       field = value.field;
 
-      if (value.text) {
-
-        if (multiple) {
-          var out = [];
-          $key.each(function() {
-            out.push(cheerio(this).text())
-          })
-          output[field] = out;
-        } else {
-          output[field] = $key.text()
-        }
-        
-      } else if (attr = value.attr) {
-
-        if (multiple) {
-          var out = [];
-          $key.each(function() {
-            out.push(cheerio(this).attr(attr))
-          })
-          output[field] = out;
-        } else {
-          output[field] = $key.attr(attr);
-        }
-
+      // if the selection returns multiple elements
+      // collect data for all returned elements
+      if (multiple) {
+        var out_list = [];
+        $key.each(function() {
+          out_list.push(get(cheerio(this), value));
+        })
+        out = out_list;
+      } else {
+        var out = get($key, value)
       }
+
+      output[field] = out;
 
     }
   }
@@ -79,6 +92,8 @@ function scrape(url, data, callback) {
         error, 
         getData($('body'), data)
       )
+    } else {
+      callback(error || response, {});
     }
   })
 }
